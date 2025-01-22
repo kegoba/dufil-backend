@@ -1,5 +1,5 @@
 import  express  from "express";
-import  {connectDatabase} from  "./dbconfig/database.js";
+import  {connectDB} from  "./dbconfig/database.js";
 import  cors  from 'cors';
 import  bodyParser from 'body-parser';
 import  path  from 'path';
@@ -7,29 +7,21 @@ import  path  from 'path';
 import authRoute from "./api/auth/route.js"
 import itemRoute from "./api/items/route.js"
 
+import morgan from "morgan";
 import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
-const allowedOrigins = ['http://localhost:8081'];
 
-const corsOptions = {
-  origin: (origin, callback) => {
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    } else {
-      return callback(new Error('Not allowed by CORS'));
-    }
-  },
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true,
-  allowedHeaders: 'Content-Type, Authorization'
-};
-app.use(cors(corsOptions));
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(morgan("combined"));
 
 
-app.options('*', cors(corsOptions));
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(cors());
+
 
 app.use(bodyParser.json());
 
@@ -72,7 +64,7 @@ app.use((req, res) => {
 
 
 
-connectDatabase(() => {
+connectDB(() => {
   // Start the server after database successful handshake
   app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);

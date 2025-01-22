@@ -31,7 +31,8 @@ export const  create_item = async(req, res)=> {
     try {
       const page = parseInt(req.query.page) || 1;
       const limit = parseInt(req.query.limit) || 10;
-      const result = await getAllItems(page, limit);
+      const search = req.query.search || ""
+      const result = await getAllItems(page, limit,search);
       res.status(200).send({
           data : result,
           messages : "Item fetched Successfully",

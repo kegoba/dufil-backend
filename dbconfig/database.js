@@ -5,9 +5,9 @@ dotenv.config();
 
 
 
-import mongoose from 'mongoose';
 
-const connectDB = async () => {
+
+export const connectDB = async (cb) => {
   const DATABASE_URL =
     process.env.NODE_ENV === 'test'
       ? process.env.TEST_DB_URI
@@ -15,13 +15,13 @@ const connectDB = async () => {
 
   try {
     mongoose
-    .connect(DATABASE_URL, {
-      socketTimeoutMS: 30 * 1000,
-    } ) 
-    .then(() => {
-      console.log("Database connected successfully.");
-      if (cb) cb();
-    })
+      .connect(DATABASE_URL, {
+        socketTimeoutMS: 30 * 1000,
+      })
+      .then(() => {
+        console.log("Database connected successfully.");
+        if (cb) cb(); // Execute the callback if provided
+      });
     console.log(`Connected to ${process.env.NODE_ENV} database`);
   } catch (err) {
     console.error('Error connecting to the database:', err);

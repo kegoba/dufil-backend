@@ -26,21 +26,27 @@ export const deleteItem =  async (id) =>{
   }
 
 
-  export const  getAllItems = async (page = 1, limit = 10)=> {
+  export const getAllItems = async (page, limit,search ) => {
     try {
       const skip = (page - 1) * limit;
-      const items = await Item.find().skip(skip).limit(limit);
-      const totalItems= await Item.countDocuments();
+      const searchFilter = search
+        ? { name: { $regex: search, $options: 'i' } } 
+        : {};
+  
+     
+      const items = await Item.find(searchFilter).skip(skip).limit(limit);
+      const totalItems = await Item.countDocuments(searchFilter); 
       const totalPages = Math.ceil(totalItems / limit);
-
+  
       return {
         items,
         totalPages,
         currentPage: page,
       };
     } catch (error) {
-      console.error('Error fetching products:', error);
+      console.error('Error fetching items:', error);
       throw error;
     }
-  }
+  };
+  
 
