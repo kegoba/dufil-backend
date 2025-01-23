@@ -15,7 +15,7 @@ mongod --version
 Clone the repository to your local machine:
 
 git clone https://github.com/kegoba/dufil-backend.git
-cd node-mongo-crud
+cd dufil-bankend
 3. Install Dependencies
 
 Inside the project directory, install the necessary dependencies:
