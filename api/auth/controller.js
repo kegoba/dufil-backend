@@ -19,7 +19,7 @@ import { signIn, signUp } from "./repository.js";
           });
     
     } catch (error) {
-      console.log(error)
+
       res.status(400).json({
          msg: "faile to sign up user", 
          error: error.message,

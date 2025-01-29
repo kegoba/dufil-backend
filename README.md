@@ -68,3 +68,6 @@ https://documenter.getpostman.com/view/29626607/2sAYQdkVxz
 
 render base url : 
 https://dufil-backend.onrender.com/api/v1
+
+
+NOTE : YOU WILL NEED TO CREATE ACCOUNT AND LOGIN BEFORE YOU CAN ACCESS THE APP.
